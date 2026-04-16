@@ -1,0 +1,80 @@
+name: "🐛 Bug report"
+description: "Report a defect in the protocol, a template, the skill, the schema, or a script."
+title: "[bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Before submitting, please confirm the bug reproduces with the latest `main`.
+
+  - type: input
+    id: version
+    attributes:
+      label: "DRP version"
+      description: "Which version did you run? (`cat research-prompt.md | grep 'v3\\.'` or tag)"
+      placeholder: "v1.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Area"
+      options:
+        - "research-prompt.md (canonical)"
+        - "consolidation-prompt.md"
+        - "anti-echo-prompt.md"
+        - "Spanish localization"
+        - "Claude Skill (skill/)"
+        - "Use case (specify in description)"
+        - "scripts/verify-citations.py"
+        - "schemas/brief.schema.json"
+        - "docs/"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: symptom
+    attributes:
+      label: "What went wrong"
+      description: "Describe the unexpected behavior."
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: "Reproduction steps"
+      description: "Paste the exact prompt / command / input that triggers the bug."
+      render: bash
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "What you expected instead"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: engine
+    attributes:
+      label: "If prompt-related: which Deep Research engine?"
+      multiple: true
+      options:
+        - "ChatGPT Deep Research (GPT-5)"
+        - "Claude Deep Research (Opus 4.6)"
+        - "Gemini Deep Research (2.5 Pro)"
+        - "Grok DeepSearch"
+        - "Perplexity Pro"
+        - "N/A"
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Environment"
+      description: "OS, Python version (if applicable), tool versions. Skip if docs-only."
+      placeholder: "macOS 14.5, Python 3.12.1"

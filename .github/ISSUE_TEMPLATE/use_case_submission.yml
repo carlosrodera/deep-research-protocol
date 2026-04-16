@@ -1,0 +1,63 @@
+name: "📑 Use case submission"
+description: "Submit a real, source-cited use case you shipped with DRP. Fabricated examples are rejected."
+title: "[use-case] "
+labels: ["use-case", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read [`templates/use-case-template.md`](../templates/use-case-template.md) and [`examples/walked-example-scaffold.md`](../examples/walked-example-scaffold.md) before opening this. Every claim in your submission must resolve to a primary source.
+
+  - type: input
+    id: domain
+    attributes:
+      label: "Domain"
+      placeholder: "Biomedical regulatory — EU MDR"
+    validations:
+      required: true
+
+  - type: input
+    id: deliverable
+    attributes:
+      label: "Deliverable type"
+      placeholder: "Compliance audit / Market report / Strategy brief / Agent / …"
+    validations:
+      required: true
+
+  - type: textarea
+    id: engines
+    attributes:
+      label: "Engines you launched in parallel"
+      description: "List the Deep Research engines. Minimum viable: 2."
+      placeholder: "ChatGPT DR, Claude DR, Gemini DR, Perplexity Pro"
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: "Outcome"
+      description: "What did you produce? What decision did it enable? What would have happened with single-engine DR?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: verify_output
+    attributes:
+      label: "Citation verifier output"
+      description: "Paste the tail of `python scripts/verify-citations.py <your-brief.md>`. All citations must resolve."
+      render: text
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: honesty
+    attributes:
+      label: "Honesty attestation"
+      options:
+        - label: "Every factual claim in my submission has a resolving URL."
+          required: true
+        - label: "I did not paraphrase citations from parametric memory."
+          required: true
+        - label: "I am OK publishing this under MIT."
+          required: true

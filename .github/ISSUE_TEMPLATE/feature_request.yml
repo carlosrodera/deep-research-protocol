@@ -1,0 +1,57 @@
+name: "✨ Feature request"
+description: "Propose a new capability, use case, domain variant, platform variant, or integration."
+title: "[feat] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: see the [roadmap](../README.md#roadmap) and [CONTRIBUTING.md](../CONTRIBUTING.md) — especially the "What we do NOT want" section.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "What problem does this solve"
+      description: "State the concrete pain. Who hits it, how often, what is the current workaround."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "Proposed solution"
+      description: "What would the feature look like? Files affected, prompt changes, new docs, scripts?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives considered"
+      description: "What other approaches did you think about? Why is this one better?"
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "Scope"
+      options:
+        - "New domain variant"
+        - "New platform variant (new DR engine)"
+        - "New use case"
+        - "New localization"
+        - "New integration (Notion, Obsidian, RAG, …)"
+        - "Tooling enhancement (scripts / schemas / CI)"
+        - "Methodology change (requires discussion)"
+        - "Other"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: alignment
+    attributes:
+      label: "Alignment checks"
+      options:
+        - label: "This feature keeps DRP a *meta-protocol* — it does not turn it into yet another DR agent."
+          required: true
+        - label: "This feature respects the anti-hallucination principle (source-cited, verifiable claims)."
+          required: true

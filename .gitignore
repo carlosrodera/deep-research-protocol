@@ -1,0 +1,42 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Secrets — never commit
+.env
+.env.local
+*.secret
+*.key
+*.pem
+
+# Claude state
+.claude/
+
+# Local workspace — users build their briefs here; not part of the published protocol
+workspace/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/

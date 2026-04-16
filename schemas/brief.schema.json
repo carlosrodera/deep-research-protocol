@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/carlosrodera/deep-research-protocol/blob/main/schemas/brief.schema.json",
+  "title": "Deep Research Protocol · Consolidated Brief",
+  "description": "Schema for the `_meta` YAML/JSON block emitted at the end of a DRP consolidated brief. Enables machine-readable consumption, automated QA, and CI validation.",
+  "type": "object",
+  "required": ["_meta"],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": [
+        "protocol",
+        "version",
+        "run_date",
+        "engines_used",
+        "findings_count",
+        "language"
+      ],
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "deep-research-protocol"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+          "description": "Semantic version of the prompt spec used."
+        },
+        "prompt_hash": {
+          "type": "string",
+          "description": "SHA256 hash of the base prompt text that was pasted into engines (for reproducibility).",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["single-engine", "consolidation"],
+          "description": "Whether this brief is from a single engine or the cross-platform consolidation."
+        },
+        "run_date": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date the research was executed."
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["chatgpt", "claude", "gemini", "grok", "perplexity", "other"],
+          "description": "Only for single-engine stage."
+        },
+        "engines_used": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["chatgpt", "claude", "gemini", "grok", "perplexity", "other"]
+          },
+          "minItems": 1,
+          "description": "Engines that participated in this brief. 1 for single-engine, 2+ for consolidation."
+        },
+        "engines_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "territory": {
+          "type": "string",
+          "description": "Declared jurisdiction / geography (free-text: 'global', 'Spain', 'EU', 'US', etc.)."
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+          "description": "BCP-47 language tag of the output (e.g. en, es, pt-BR)."
+        },
+        "domain_variant": {
+          "type": "string",
+          "enum": ["A", "B", "C"],
+          "description": "A = technical/software, B = regulatory/legal/standards, C = mixed."
+        },
+        "depth": {
+          "type": "string",
+          "enum": ["overview", "deep"]
+        },
+        "quality_gates": {
+          "type": "object",
+          "description": "Self-reported gate scores. Thresholds defined in the research prompt (Step I).",
+          "properties": {
+            "clarity": { "type": "number", "minimum": 0, "maximum": 10 },
+            "specificity": { "type": "number", "minimum": 0, "maximum": 1 },
+            "completeness": { "type": "number", "minimum": 0, "maximum": 50 },
+            "structure": { "type": "number", "minimum": 0, "maximum": 40 },
+            "source_quota_met": { "type": "boolean" },
+            "anti_hallucination_tagged": { "type": "boolean" },
+            "all_numeric_claims_carry_uncertainty": { "type": "boolean" }
+          }
+        },
+        "source_counts": {
+          "type": "object",
+          "description": "Counts of sources used by tier, as defined by DRP Step D source quota.",
+          "properties": {
+            "primary": { "type": "integer", "minimum": 0 },
+            "regulatory_or_security": { "type": "integer", "minimum": 0 },
+            "industry": { "type": "integer", "minimum": 0 },
+            "counter_example": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "findings_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "findings_below_0_7_confidence": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Any finding below 0.7 confidence requires a 'why low' line per DRP Step F."
+        },
+        "consensus_findings": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Consolidation-stage: findings confirmed by >=3 engines."
+        },
+        "discrepancy_findings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unique_signal_findings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "suspected_hallucinations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gaps_identified": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "primary_sources_to_download": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}
